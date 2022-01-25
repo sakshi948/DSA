@@ -1,14 +1,38 @@
 class Solution {
     public boolean canPlaceFlowers(int[] flowerbed, int n) {
-        int cnt = 0, N = flowerbed.length;
-        for (int i = 0; i < N; i++) {
-            if (flowerbed[i] == 0) {
-                if ((i == 0 || flowerbed[i-1] == 0) && (i == N-1 || flowerbed[i+1] == 0)) {
-                    cnt++;
-                    flowerbed[i] = 1;
-                }
-            }
+        int len=flowerbed.length;
+        if(n==0)
+        {
+            return true;
         }
-        return cnt >= n;
+        
+        if(n==1&&flowerbed[0]==0&&len==1)
+        {
+           return true; 
+        }
+        
+         for(int i=0;i<len;i++)
+         {
+             
+             if(flowerbed[i]==0)
+             {
+                 if(i==0&&flowerbed[i+1]==0)
+                 {
+                     flowerbed[i]=1;
+                     n--;
+                 }
+                 else if(i==len-1&&flowerbed[i-1]==0)
+                 {
+                     flowerbed[i]=1;
+                     n--;
+                 }
+                 else if(i>0&&i<len-1&&flowerbed[i-1]==0&&flowerbed[i+1]==0)
+                 {
+                     flowerbed[i]=1;
+                     n--;
+                 }
+             }
+       }
+        return n<=0;
     }
 }
