@@ -5,9 +5,6 @@ class Solution {
         {
             hs.add(nums[i]);
         }
-        
-        if(hs.size()<nums.length) return true;
-            
-        return false;
+        return (hs.size()<nums.length);
     }
 }
