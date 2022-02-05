@@ -1,15 +1,52 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-        List<Integer> res = new ArrayList();
-        if(s.length()==0 || s == null) return res;
-        int [] occur = new int[26];
-        for(char c : p.toCharArray()) occur[c-'a']++;
-        int left = 0,right = 0,count = p.length();
-        while(right<s.length()){
-            if(occur[s.charAt(right++)-'a']-->=1) count--;
-            if(count == 0) res.add(left);
-            if(right-left==p.length() && occur[s.charAt(left++)-'a']++>=0) count++;
+         
+        ArrayList<Integer> ans=new ArrayList<>();
+        if(p.length()>s.length())
+        {
+            return ans;
         }
-        return res;
+        HashMap<Character,Integer>pmap=new HashMap<>();
+        for(int i=0;i<p.length();i++)
+        {
+            char ch=p.charAt(i);
+            pmap.put(ch,pmap.getOrDefault(ch,0)+1);
+        }
+        HashMap<Character,Integer>smap=new HashMap<>();
+        for(int i=0;i<p.length();i++)
+        {
+            char ch=s.charAt(i);
+            smap.put(ch,smap.getOrDefault(ch,0)+1);
+        }
+        
+        if(pmap.equals(smap))
+        {
+            ans.add(0);
+        }
+        int max=Math.max(s.length(),p.length());
+        int min=Math.min(s.length(),p.length());
+        for(int i=min;i<max;i++)
+        {
+            char ch1=s.charAt(i);
+            char ch2=s.charAt(i-p.length());
+            //add
+            smap.put(ch1,smap.getOrDefault(ch1,0)+1);
+            
+            //remove
+            if(smap.get(ch2)==1)
+            {
+                smap.remove(ch2);
+            }
+            else{
+                smap.put(ch2,smap.get(ch2)-1);
+            }
+            if(pmap.equals(smap))
+            {
+                ans.add(i-p.length()+1);
+            }
+        }
+        
+        
+        return ans;
     }
 }
