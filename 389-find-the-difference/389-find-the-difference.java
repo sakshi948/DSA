@@ -1,16 +1,20 @@
 class Solution {
     public char findTheDifference(String s, String t) {
-        char schar[]=s.toCharArray();
-        char tchar[]=t.toCharArray();
-        Arrays.sort(schar);
-        Arrays.sort(tchar);
+        
+        int sum1=0,sum2=0;
         for(int i=0;i<s.length();i++)
         {
-            if(schar[i]!=tchar[i])
-            {
-               return tchar[i];
-            }
+            sum1+=(int)s.charAt(i);
         }
-        return tchar[t.length()-1];
+        
+        for(int i=0;i<t.length();i++)
+        {
+            sum2+=(int)t.charAt(i);
+        }
+        
+        int ans=sum2-sum1;
+        char fans=(char)ans;
+        
+        return fans;
     }
 }
